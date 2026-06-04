@@ -1,0 +1,45 @@
+services:
+  # Backend API
+  - type: web
+    name: bookswap-backend
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRE
+        value: 7d
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bookswap-db
+          property: connectionString
+    healthCheckPath: /
+
+  # Frontend
+  - type: web
+    name: bookswap-frontend
+    runtime: static
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://bookswap-backend.onrender.com
+
+databases:
+  - name: bookswap-db
+    databaseName: bookswap
+    user: bookswap
+    region: frankfurt
+    plan: free
