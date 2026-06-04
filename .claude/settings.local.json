@@ -8,7 +8,10 @@
       "Bash(netstat -ano)",
       "Bash(findstr :5000)",
       "Bash(taskkill *)",
-      "Bash(node src/seed.js)"
+      "Bash(node src/seed.js)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }
