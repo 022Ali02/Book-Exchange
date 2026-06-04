@@ -27,7 +27,7 @@ services:
   - type: web
     name: bookswap-frontend
     runtime: static
-    buildCommand: npm install && npx vite build
+    buildCommand: npm install --include=dev && npx vite build
     staticPublishPath: ./dist
     routes:
       - type: rewrite
@@ -36,6 +36,8 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://bookswap-backend.onrender.com
+      - key: NODE_ENV
+        value: production
 
 databases:
   - name: bookswap-db
