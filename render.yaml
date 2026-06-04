@@ -26,7 +26,6 @@ services:
   - type: web
     name: bookswap-frontend
     runtime: static
-    region: frankfurt
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     routes:
